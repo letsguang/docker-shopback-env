@@ -26,5 +26,9 @@ RUN a2enmod ssl
 
 # -----------------------------------------------------------
 
+RUN echo "Asia/Hong_Kong" > /etc/timezone; dpkg-reconfigure -f noninteractive tzdata
+
+# -----------------------------------------------------------
+
 USER worker
 WORKDIR /home/worker/
