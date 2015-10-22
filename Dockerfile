@@ -1,6 +1,6 @@
 FROM siutin/ubuntu-rails-ap-passenger-ssh:latest
 MAINTAINER Martin Chan <osiutino@gmail.com>
-ENV REFRESHED_AT 2015-09-09
+ENV REFRESHED_AT 2015-10-22
 
 USER root
 
