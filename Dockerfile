@@ -1,6 +1,6 @@
 FROM siutin/ubuntu-rails-apache-passenger-ssh:v2.4.7_5.0.30_5.0.1_2.3.1_20170106
 MAINTAINER Martin Chan <osiutino@gmail.com>
-ENV REFRESHED_AT 2017-01-06
+ENV REFRESHED_AT 2017-03-17
 
 USER root
 
@@ -32,3 +32,9 @@ RUN echo "Asia/Hong_Kong" > /etc/timezone; dpkg-reconfigure -f noninteractive tz
 
 USER worker
 WORKDIR /home/worker/
+
+# RUN echo "RAILS_ENV=production" >> /home/worker/.bash_profile
+ 
+COPY main.sh /home/worker/
+
+CMD ["/home/worker/main.sh"]
