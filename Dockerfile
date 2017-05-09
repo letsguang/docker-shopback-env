@@ -26,15 +26,30 @@ RUN a2enmod ssl
 
 # -----------------------------------------------------------
 
-RUN echo "Asia/Hong_Kong" > /etc/timezone; dpkg-reconfigure -f noninteractive tzdata
+ENV REFRESHED_AT 2017-05-09
+
+# - REMOVE SUDO  --------------------------------------------
+
+RUN gpasswd -d worker sudo
+
+RUN sed -i '$ d' /etc/sudoers
 
 # -----------------------------------------------------------
 
-USER worker
-WORKDIR /home/worker/
+RUN apt-get install  -y supervisor
 
-# RUN echo "RAILS_ENV=production" >> /home/worker/.bash_profile
- 
+RUN echo "Asia/Hong_Kong" > /etc/timezone; dpkg-reconfigure -f noninteractive tzdata
+
 COPY main.sh /home/worker/
 
-CMD ["/home/worker/main.sh"]
+RUN chown worker:worker /home/worker/main.sh
+
+# ----------------------------------------------------------
+
+RUN mkdir -p /var/log/supervisor
+
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+EXPOSE 22 80
+
+CMD ["/usr/bin/supervisord"]
