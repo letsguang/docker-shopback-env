@@ -28,17 +28,19 @@ RUN a2enmod ssl
 
 ENV REFRESHED_AT 2017-05-09
 
-# - REMOVE SUDO  --------------------------------------------
+# - REMOVE MAGIC  -------------------------------------------
 
 RUN gpasswd -d worker sudo
 
 RUN sed -i '$ d' /etc/sudoers
 
+RUN head -n -2 /etc/bash.bashrc > /etc/bash.bashrc
+
 # -----------------------------------------------------------
 
-RUN apt-get install  -y supervisor
-
 RUN echo "Asia/Hong_Kong" > /etc/timezone; dpkg-reconfigure -f noninteractive tzdata
+
+RUN apt-get install  -y supervisor
 
 COPY main.sh /home/worker/
 
