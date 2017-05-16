@@ -52,4 +52,8 @@ RUN mkdir -p /var/log/supervisor
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+WORKDIR /home/worker/
+
+ENV REFRESHED_AT 2017-05-16
+
 CMD ["/usr/bin/supervisord"]
